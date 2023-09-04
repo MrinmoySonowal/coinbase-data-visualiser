@@ -10,16 +10,11 @@ class TestClientServer(unittest.TestCase):
         self.assertIsInstance(ids, list)
         self.assertGreater(len(ids), 0)
 
-    def test_multiple_clients(self):
-        ids1 = get_product_ids()
-        ids2 = get_product_ids()
-        self.assertEqual(set(ids1), set(ids2))
-
     def test_high_load_on_server(self):
         ids = [set(get_product_ids()) for _ in range(20)]
         self.assertTrue(all([id_list == ids[0] for id_list in ids]))
 
-    def test_parallel_clients(self):
+    def test_concurrent_client_requests(self):
         num_clients = 5
         with concurrent.futures.ThreadPoolExecutor(max_workers=num_clients) as executor:
             results = [executor.submit(get_product_ids) for _ in range(num_clients)]
