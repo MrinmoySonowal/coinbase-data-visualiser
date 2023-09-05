@@ -1,11 +1,14 @@
 import concurrent.futures
 import unittest
 from example_client import get_product_ids
+import logging
 
 
 class TestClientServer(unittest.TestCase):
     def test_single_client(self):
         ids = get_product_ids()
+        log= logging.getLogger("TestClientServer.test_single_client")
+        log.debug(ids)
         self.assertIsNotNone(ids)
         self.assertIsInstance(ids, list)
         self.assertGreater(len(ids), 0)
@@ -15,13 +18,13 @@ class TestClientServer(unittest.TestCase):
         self.assertTrue(all([id_list == ids[0] for id_list in ids]))
 
     def test_concurrent_client_requests(self):
-        num_clients = 5
+        num_clients = 50
         with concurrent.futures.ThreadPoolExecutor(max_workers=num_clients) as executor:
             results = [executor.submit(get_product_ids) for _ in range(num_clients)]
             ids = []
             for f in concurrent.futures.as_completed(results):
                 ids.append(set(f.result()))
-            self.assertEqual(len(ids), 5, "Expected 5 client results!")
+            self.assertEqual(len(ids), num_clients, "Expected 5 client results!")
             self.assertTrue(all([id_list == ids[0] and len(id_list) == len(ids[0]) for id_list in ids]))
 
 
