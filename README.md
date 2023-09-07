@@ -1,6 +1,8 @@
 # coinbase-data-visualiser
 A website to visualise historic and live Coinbase data.
 
+![alt text](https://github.com/MrinmoySonowal/coinbase-data-visualiser/blob/main/page-screenshot.png?raw=true)
+
 ## Install dependencies
 
 ### Add permissions to run the install files
