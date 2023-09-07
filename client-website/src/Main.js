@@ -146,7 +146,7 @@ function Main() {
                                   onValueChange={(v) => setSelectedGranularity(granularity[v])}
                                   hint={"Please choose granularity"}/>
                     </Col>
-                    <Chart options={chart.options} series={series} type="candlestick" width="100%" height={320} />
+                    <Chart options={chart.options} series={series} type="candlestick" width="100%" height={500} />
                 </Row>
             </div>
         );
