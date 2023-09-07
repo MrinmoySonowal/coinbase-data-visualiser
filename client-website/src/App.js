@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import LandingPage from "./LandingPage";
-import Main from "./Main";
+import LandingPage from "./screens/LandingPage";
+import Main from "./screens/Main";
 
 function App() {
 

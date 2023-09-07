@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Row, Col} from "react-bootstrap";
-import './App.css';
-import Dropdown from './Dropdown';
+import '../App.css';
+import Dropdown from '../components/Dropdown';
 import Chart from 'react-apexcharts';
 
 const secondsInDay = 60*60*24 // 86400
