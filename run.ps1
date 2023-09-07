@@ -1,13 +1,13 @@
 # Change directory to backend
 Set-Location ./backend
 # Install dependencies with conda
-conda env create -f environment.yml
+conda env create -f ENV.yml
 # Activate conda environment
 conda activate backend-coinbase-visualiser
 # Start backend server with uvicorn in a new job
 Start-Job -Name Backend -ScriptBlock {uvicorn coin_server:app --host localhost --port 8000 --workers 5}
 # Change directory to frontend
-Set-Location ../frontend
+Set-Location ../client-wesbite
 # Install dependencies with npm
 npm install
 # Start frontend app with npm in a new job
