@@ -41,7 +41,7 @@ def get_all_products() -> JSONResponse:
         return JSONResponse("Ids is not initialised, please re run server")
 
 
-def get_candles_helper(product_id: str, start_timestamp: int, end_timestamp: int, granularity: int) -> List[int]:
+def fetch_candles_from_endpoint(product_id: str, start_timestamp: int, end_timestamp: int, granularity: int) -> List[int]:
     time_range = end_timestamp - start_timestamp
     if time_range > granularity * MAX_RESPONSE_LEN_CANDLES:
         raise Exception(
@@ -54,8 +54,6 @@ def get_candles_helper(product_id: str, start_timestamp: int, end_timestamp: int
     response = requests.get(coinbase_endpoint)
     if response.status_code == 200:
         data = response.json()
-        # for i in range(len(data[1:])):
-        #
         return data
     else:
         return []
@@ -65,16 +63,16 @@ def get_candles_helper(product_id: str, start_timestamp: int, end_timestamp: int
 def get_candles(product_id: str, start_timestamp: int, end_timestamp: int, granularity: int) -> JSONResponse:
     current_end_timestamp = start_timestamp + MAX_RESPONSE_LEN_CANDLES*granularity
     if end_timestamp <= current_end_timestamp:
-        candles = get_candles_helper(product_id, start_timestamp, end_timestamp, granularity)
+        candles = fetch_candles_from_endpoint(product_id, start_timestamp, end_timestamp, granularity)
     else:
-        candles = get_candles_helper(product_id, start_timestamp, current_end_timestamp, granularity)
+        candles = fetch_candles_from_endpoint(product_id, start_timestamp, current_end_timestamp, granularity)
         # start_timestamp = current_end_timestamp+1
         # current_end_timestamp = min(current_end_timestamp+MAX_RESPONSE_LEN_CANDLES*granularity, end_timestamp)
 
     while current_end_timestamp <= end_timestamp:
         start_timestamp = current_end_timestamp + 1
         current_end_timestamp = min(current_end_timestamp + MAX_RESPONSE_LEN_CANDLES * granularity, end_timestamp)
-        candles.extend(get_candles_helper(product_id, start_timestamp, current_end_timestamp, granularity))
+        candles.extend(fetch_candles_from_endpoint(product_id, start_timestamp, current_end_timestamp, granularity))
         if current_end_timestamp == end_timestamp:
             break
 
