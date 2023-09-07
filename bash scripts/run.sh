@@ -1,5 +1,8 @@
+#!/bin/bash
+
+chmod u+x run.sh
 # Change directory to backend
-cd ./backend
+cd ../backend
 # Activate the environment
 conda activate backend-coinbase-visualiser
 # Start backend server
