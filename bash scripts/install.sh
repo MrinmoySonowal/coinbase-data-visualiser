@@ -1,8 +1,7 @@
 #!/bin/bash
 
-chmod u+x install.sh
 cd ../backend
-# Install dependencies with conda
+# Install dependencies and conda env with conda
 conda env create -f ENV.yml
 cd ../client-website
 # Install dependencies with npm
