@@ -4,12 +4,12 @@ import LandingPage from "./LandingPage";
 import Main from "./Main";
 
 function App() {
-    const [products, setProducts] = useState([]);
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path="/" element={<LandingPage setProducts={setProducts}/>}/>
-                <Route exact path="/main" element={<Main products={products}/>}/>
+                <Route exact path="/" element={<LandingPage/>}/>
+                <Route exact path="/main" element={<Main/>}/>
             </Routes>
         </BrowserRouter>
     )

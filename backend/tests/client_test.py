@@ -69,6 +69,10 @@ class TestClientServer(unittest.TestCase):
         self.assertTrue(len(candles) == number_of_intervals or len(candles) == number_of_intervals - 1)
 
     def test_out_of_range_candles(self):
+        """
+        This test is to check if we are getting the correct number of candles, works only for BTC-USD
+        Some products like BAL-USD don't have enough datapoints
+        """
         end_timestamp = int(datetime.now().timestamp())
         number_of_intervals = 1440
         self.assertGreater(number_of_intervals, 300)
