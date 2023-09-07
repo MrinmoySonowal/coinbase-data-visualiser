@@ -29,7 +29,7 @@ const chart = {
             height: 350
         },
         title: {
-            text: 'CandleStick Chart',
+            text: 'Coinbase Exchange Chart',
             align: 'left'
         },
         xaxis: {
@@ -77,7 +77,7 @@ function Main() {
             return;
         }
         async function fetchProductsData() {
-            await fetch('/products')
+            await fetch('/products', {mode: 'no-cors'})
                 .then((response) => response.json())
                 .then((data) => {
                     setProducts(data);
