@@ -54,6 +54,8 @@ def get_candles_helper(product_id: str, start_timestamp: int, end_timestamp: int
     response = requests.get(coinbase_endpoint)
     if response.status_code == 200:
         data = response.json()
+        # for i in range(len(data[1:])):
+        #
         return data
     else:
         return []

@@ -35,12 +35,12 @@ class TestClientServer(unittest.TestCase):
         granularity = 60
         candles = get_candles("BTC-USD", start_timestamp, end_timestamp, granularity)
         self.assertEqual(len(candles[0]), 6)
-        self.assertTrue(len(candles)==number_of_intervals or len(candles)==number_of_intervals-1)
+        self.assertTrue(len(candles) == number_of_intervals or len(candles) == number_of_intervals-1)
         self.assertEqual(type(candles), list)
         self.assertEqual(type(candles[0]), list)
         self.assertEqual(type(candles[0][0]), int)
         for i in range(1,6):
-            self.assertEqual(type(candles[0][i]), float)
+            self.assertEqual(type(candles[0][i]), float, candles[0])
 
 
     def test_candles_on_known_values(self):
@@ -70,17 +70,13 @@ class TestClientServer(unittest.TestCase):
 
     def test_out_of_range_candles(self):
         end_timestamp = int(datetime.now().timestamp())
-        number_of_intervals = 350
+        number_of_intervals = 1440
         self.assertGreater(number_of_intervals, 300)
         start_timestamp = int(end_timestamp - number_of_intervals * SECONDS_IN_A_MINUTE)
         granularity = 60
         candles = get_candles("BTC-USD", start_timestamp, end_timestamp, granularity)
         self.assertEqual(len(candles[0]), 6)
         self.assertTrue(len(candles) == number_of_intervals or len(candles) == number_of_intervals - 1)
-
-
-
-
 
 
 if __name__ == "__main__":
